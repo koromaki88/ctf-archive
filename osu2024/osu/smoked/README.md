@@ -1,0 +1,3 @@
+# smoked - 415 solves / 105 pts
+
+Imagine getting flag from simply watching a replay...
