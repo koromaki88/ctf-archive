@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login • Secret Postbox</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body data-page="login">
+    <div class="shell narrow">
+        <header>
+            <div class="badge">Hyperf Crypt</div>
+            <h1>Sign In</h1>
+        </header>
+        <div class="card">
+            <label>Username</label>
+            <input id="loginUser" placeholder="username" autocomplete="off">
+            <label>Password</label>
+            <input id="loginPass" type="password" placeholder="password">
+            <button id="loginBtn">Login</button>
+            <div class="status" id="loginStatus">Use your credentials.</div>
+            <div class="muted">Need an account? <a href="/register">Register</a></div>
+        </div>
+    </div>
+    <script src="/app.js"></script>
+</body>
+</html>

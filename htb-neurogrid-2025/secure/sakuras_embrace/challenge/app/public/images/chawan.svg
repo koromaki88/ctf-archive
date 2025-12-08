@@ -1,0 +1,6 @@
+<svg width="640" height="480" viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg">
+  <rect width="640" height="480" fill="#ffffff"/>
+  <ellipse cx="320" cy="240" rx="200" ry="90" fill="#ece2d0" stroke="#d8c3a5"/>
+  <ellipse cx="320" cy="220" rx="160" ry="50" fill="#fff" opacity="0.6"/>
+  <text x="320" y="420" font-family="Noto Serif JP, serif" font-size="28" text-anchor="middle" fill="#0f4c81">Chawan</text>
+</svg>

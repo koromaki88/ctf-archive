@@ -1,0 +1,6 @@
+<svg width="640" height="480" viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg">
+  <rect width="640" height="480" fill="#ffffff"/>
+  <rect x="180" y="120" width="280" height="220" rx="28" fill="#e7ecef" stroke="#c9d6df"/>
+  <rect x="210" y="320" width="220" height="20" rx="8" fill="#c9d6df"/>
+  <text x="320" y="420" font-family="Noto Serif JP, serif" font-size="28" text-anchor="middle" fill="#0f4c81">Yunomi</text>
+</svg>

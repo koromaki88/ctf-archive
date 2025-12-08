@@ -1,0 +1,4 @@
+Please check the hash of the files:
+	+ chall:
+		- MD5: e832e3719f39f42347f2f8218076d256
+		- SHA256: aa5abca75b7fadece3abfbaab54f4cb71edda8ef32937de11f24c33c2c1e4089

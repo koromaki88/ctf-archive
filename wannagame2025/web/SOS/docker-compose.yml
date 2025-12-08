@@ -1,0 +1,12 @@
+services:
+
+  app:
+    build: app
+    ports:
+      - "9099:9099"
+    networks:
+      - my-net
+
+networks:
+  my-net:
+    driver: bridge

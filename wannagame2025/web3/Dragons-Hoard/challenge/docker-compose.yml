@@ -1,0 +1,8 @@
+version: '3'
+services:
+  dragons-hoard:
+    build: .
+    ports:
+      - "31337:31337"
+    environment:
+      - FLAG=W1{flag_placeholder}

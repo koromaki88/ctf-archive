@@ -1,0 +1,77 @@
+[project]
+name = "finalcscv2025-mychall4"
+version = "0.1.0"
+description = "UN-CCC CTF backend (Django/DRF)"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+  "django>=5.0",
+  "djangorestframework>=3.15",
+  "djangorestframework-simplejwt>=5.3",
+  "pydantic>=2.7",
+  "pydantic-settings>=2.4",
+  "pycryptodome>=3.23.0",
+  # Production server and database
+  "uvicorn[standard]>=0.30",
+  "psycopg[binary]>=3.1",
+  "dj-database-url>=2.1",
+  "django-redis>=5.4",
+]
+
+[dependency-groups]
+dev = [
+  "requests>=2.32",
+  "pytest>=8.3",
+  "pytest-django>=4.8",
+  "ruff>=0.6.9",
+  "basedpyright>=1.32.1",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+DJANGO_SETTINGS_MODULE = "config.settings"
+pythonpath = ["src"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+exclude = ["tmp_downloads"]
+
+[tool.ruff.lint]
+select = [
+  "E",   # pycodestyle errors
+  "F",   # pyflakes
+  "I",   # isort
+  "D",   # pydocstyle
+  "ANN", # flake8-annotations (require type hints)
+]
+ignore = [
+  "D104", # Missing docstring in public package (allow empty __init__)
+  "D203", # one-blank-line-before-class (we prefer D211)
+  "D213", # multi-line-summary-second-line
+  "D105", # magic method docstrings are unnecessary
+  "D106", # nested class docstrings add little value
+  "D107", # allow lightweight __init__ without docstring
+]
+
+[tool.ruff.lint.per-file-ignores]
+"*/migrations/*.py" = ["ANN", "D", "E501"]
+"tests/**/*.py" = ["ANN", "D"]
+"tools/solvers/third_party/lll_cvp.py" = ["ALL"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "pep257"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "lf"
+
+[tool.basedpyright]
+typeCheckingMode = "standard"
+exclude = ["src/**/migrations/**", ".venv/**", "tmp_downloads"]
+extraPaths = ["src"]
+reportAttributeAccessIssue = false
+reportGeneralTypeIssues = false

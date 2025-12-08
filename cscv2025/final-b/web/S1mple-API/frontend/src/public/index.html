@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>API</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div class="admin-container">
+    <div class="sidebar">
+      <h2>API</h2>
+      <ul>
+        <li onclick="showSection('loginSection')">POST /login</li>
+        <li onclick="internalOnly('/forgot_password')">POST /forgot_password</li>
+        <li onclick="internalOnly('/update_password')">POST /update_password</li>
+        <li onclick="showSection('requestInspectSection')">POST /request_inspect</li>
+        <li onclick="showSection('processSection')">POST /process</li>
+        <li onclick="logout()">Logout</li>
+      </ul>
+    </div>
+
+    <div class="main">
+      <div id="content" class="card">
+        <section id="loginSection" style="display:none;">
+          <h3>POST /login</h3>
+          <p class="muted">Get access token. Stores token in localStorage.</p>
+          <form id="loginForm" class="card" style="padding:12px; gap:8px; display:flex; flex-direction:column; margin-top:8px;">
+            <input type="text" name="username" placeholder="username (string)" required />
+            <input type="password" name="password" placeholder="password (string)" required />
+            <div style="text-align:right"><button type="submit">Send Request</button></div>
+          </form>
+          <div class="card" style="margin-top:10px;"><pre id="loginResult"></pre></div>
+        </section>
+
+        <section id="requestInspectSection" style="display:none; margin-top:16px;">
+          <h3>POST /request_inspect</h3>
+          <p class="muted">Inspect a data and optional headers. Requires Bearer token.</p>
+          <form id="requestInspectForm" class="card" style="padding:12px; gap:8px; display:flex; flex-direction:column; margin-top:8px;">
+            <textarea name="data" placeholder="(string)" rows="8" required style="font-family:monospace;"></textarea>
+            <textarea name="headers" placeholder="headers (JSON string, optional)" rows="4" style="font-family:monospace;"></textarea>
+            <div style="text-align:right"><button type="submit">Send Request</button></div>
+          </form>
+          <div class="card" style="margin-top:10px;"><pre id="inspectResult"></pre></div>
+        </section>
+
+        <section id="processSection" style="display:none; margin-top:16px;">
+          <h3>POST /process</h3>
+          <p class="muted">Process a Python script in a sandbox with the given username. Requires Bearer token.</p>
+          <form id="processScriptForm" class="card" style="padding:12px; gap:8px; display:flex; flex-direction:column; margin-top:8px;">
+            <div style="display:flex; gap:8px;">
+              <input type="text" name="username" placeholder="username (string)" required />
+              <input type="text" id="tokenField" placeholder="access_token (Bearer)" style="flex:1; display:none;" />
+            </div>
+            <textarea name="script" placeholder="script (string)" rows="8" required style="font-family:monospace;"></textarea>
+            <div style="text-align:right"><button type="submit">Send Request</button></div>
+          </form>
+          <div class="card" style="margin-top:10px;"><pre id="processResult"></pre></div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Internal use only handler
+    function internalOnly(endpoint) {
+      alert(`Endpoint ${endpoint} is internal use only.`);
+    }
+
+    function showSection(id) {
+      const ids = ['loginSection','requestInspectSection','processSection'];
+      for (const sec of ids) {
+        const el = document.getElementById(sec);
+        if (el) el.style.display = 'none';
+      }
+      // Require token for certain sections
+      if (id === 'processSection' || id === 'requestInspectSection') {
+        let token = localStorage.getItem('access_token') || '';
+        if (!token) {
+          const entered = window.prompt(`Enter access token (Bearer) to use ${id === 'processSection' ? '/process' : '/request_inspect'}:`);
+          if (entered && entered.trim()) {
+            localStorage.setItem('access_token', entered.trim());
+          } else {
+            const targetLogin = document.getElementById('loginSection');
+            if (targetLogin) targetLogin.style.display = 'block';
+            return;
+          }
+        }
+      }
+      const target = document.getElementById(id);
+      if (target) target.style.display = 'block';
+    }
+
+    function logout() {
+      try { localStorage.removeItem('access_token'); } catch {}
+      alert('Logged out: cleared access token');
+      showSection('loginSection');
+    }
+
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const params = new URLSearchParams();
+      params.append('username', e.target.username.value);
+      params.append('password', e.target.password.value);
+
+      const res = await fetch('/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+        body: params.toString()
+      });
+
+      const data = await res.json();
+      if (data && data.access_token) {
+        localStorage.setItem('access_token', data.access_token);
+      }
+      document.getElementById('loginResult').textContent = JSON.stringify(data, null, 2);
+    });
+
+    document.getElementById('requestInspectForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const params = new URLSearchParams();
+      let token = localStorage.getItem('access_token') || '';
+      if (!token) {
+        alert('Missing access_token. Login first or provide a token.');
+        return;
+      }
+      params.append('data', e.target.data.value);
+      if (e.target.headers.value) {
+          params.append('headers', e.target.headers.value);
+      }
+      params.append('access_token', token);
+      const res = await fetch('/request_inspect', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+        body: params.toString()
+      });
+      const data = await res.json();
+      document.getElementById('inspectResult').textContent = JSON.stringify(data, null, 2);
+    });
+
+    document.getElementById('processScriptForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const params = new URLSearchParams();
+      let token = localStorage.getItem('access_token') || '';
+      if (!token) {
+        const field = document.getElementById('tokenField');
+        field.style.display = 'block';
+        token = field.value;
+        if (!token) {
+          alert('Missing access_token. Login first or provide a token.');
+          return;
+        }
+      }
+      params.append('username', e.target.username.value);
+      params.append('script', e.target.script.value);
+      params.append('access_token', token);
+      const res = await fetch('/process', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+        body: params.toString()
+      });
+      const data = await res.json();
+      document.getElementById('processResult').textContent = JSON.stringify(data, null, 2);
+    });
+
+    showSection('loginSection');
+  </script>
+</body>
+</html>

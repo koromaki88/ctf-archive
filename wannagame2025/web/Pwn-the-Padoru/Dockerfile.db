@@ -1,0 +1,8 @@
+FROM postgres:15
+
+# Bundle initialization SQL into the image so the DB image can be exported as a tar
+# with its bootstrap schema included (no runtime bind-mount needed).
+COPY db/init.sql /docker-entrypoint-initdb.d/init.sql
+
+# Expose Postgres port for clarity (docker-compose will handle networking).
+EXPOSE 5432

@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      MSSQL_SA_PASSWORD: "YourStrong!Passw0rd"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    volumes:
+      - ./mssql/init.sql:/init.sql:ro
+      - ./mssql/init.sh:/docker-entrypoint-initdb.d/init.sh:ro
+      - ./mssql/flag.txt:/flag.txt:ro
+    command: ["/bin/bash", "/docker-entrypoint-initdb.d/init.sh"]
+    healthcheck:
+      test: ["CMD", "/opt/mssql-tools18/bin/sqlcmd", "-S", "localhost", "-U", "sa", "-P", "YourStrong!Passw0rd", "-Q", "SELECT 1", "-C"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  invoicesapp:
+    build: ./
+    ports:
+      - "5050:5050"
+    environment:
+      MSSQL_HOST: mssql
+      MSSQL_USER: sa
+      MSSQL_PASSWORD: YourStrong!Passw0rd
+      MSSQL_DB: invoices_db
+      MSSQL_PORT: 1433
+    depends_on:
+      mssql:
+        condition: service_healthy

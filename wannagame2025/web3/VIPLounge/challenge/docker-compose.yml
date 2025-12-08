@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  vip-lounge:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        FLAG: "W1{vip_l0unge_0wn3r_ch3ck_byp4ss}"
+        PORT: "31337"
+    ports:
+      - "31337:31337"
+    environment:
+      - FLAG=W1{vip_l0unge_0wn3r_ch3ck_byp4ss}
+      - PORT=31337
+    restart: unless-stopped
+

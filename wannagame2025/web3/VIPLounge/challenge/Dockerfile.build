@@ -1,0 +1,57 @@
+# --- Builder stage: install Solana toolchain and build artifacts ---
+# Build context should be the parent of vip-lounge (i.e., the Blockchain directory)
+# This allows access to sol-ctf-framework
+FROM rust:1.86-bookworm AS builder
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV PATH="/root/.cargo/bin:/root/.local/share/solana/install/active_release/bin:${PATH}"
+
+# Install system dependencies
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        git curl ca-certificates build-essential clang cmake \
+        pkg-config libssl-dev libclang-dev llvm-dev libudev-dev && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install Solana CLI tools (includes cargo-build-sbf)
+RUN sh -c "$(curl -sSfL https://release.anza.xyz/stable/install)" && \
+    solana --version
+
+WORKDIR /build
+
+# Copy sol-ctf-framework and vip-lounge maintaining the same directory structure
+# so that relative paths in Cargo.toml work correctly
+COPY sol-ctf-framework /build/sol-ctf-framework
+COPY vip-lounge /build/vip-lounge
+
+# Build the Solana program (BPF)
+WORKDIR /build/vip-lounge/program
+RUN cargo build-sbf
+
+# Build the server binary
+WORKDIR /build/vip-lounge/server
+RUN cargo build --release
+
+# --- Runtime stage: minimal image with built artifacts ---
+FROM debian:bookworm-slim
+
+ARG FLAG="W1{vip_l0unge_0wn3r_ch3ck_byp4ss}"
+ARG PORT=31337
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV FLAG="${FLAG}"
+ENV PORT="${PORT}"
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends ca-certificates libudev-dev libssl-dev && \
+    rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Copy server binary and program artifacts
+COPY --from=builder /build/vip-lounge/server/target/release/vip-lounge-server /app/vip-lounge-server
+COPY --from=builder /build/vip-lounge/program/target/deploy/vip_lounge.so /app/vip_lounge.so
+
+EXPOSE 31337
+
+CMD ["/app/vip-lounge-server"]

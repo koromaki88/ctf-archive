@@ -1,0 +1,3 @@
+# Boring Signing - 500 pts - 63 solves
+
+Although I tried to use C and weird base to make this challenge more interesting, my friend still feel boring...

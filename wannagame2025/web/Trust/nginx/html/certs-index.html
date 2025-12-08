@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate Downloads - TrustBoundary</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header .subtitle {
+            color: #7f8c8d;
+            font-size: 1.1em;
+        }
+
+        .cert-card {
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .cert-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-left-color: #27ae60;
+        }
+
+        .cert-card h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cert-card .icon {
+            font-size: 1.5em;
+        }
+
+        .cert-card p {
+            color: #7f8c8d;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            display: inline-block;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .download-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+        }
+
+        .code-block .command {
+            color: #2ecc71;
+        }
+
+        .code-block .comment {
+            color: #95a5a6;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .warning strong {
+            color: #856404;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #ecf0f1;
+            color: #7f8c8d;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Certificate Downloads</h1>
+            <p class="subtitle">Public Client Certificates for TrustBoundary</p>
+        </div>
+
+        <div class="cert-card">
+            <h3>Client Certificate</h3>
+            <p>Public client certificate that can be used to connect to the TrustBoundary system. This certificate is signed by an untrusted CA and will not grant access to the employee portal.</p>
+            <a href="/download/client.crt" class="download-btn">Download client.crt</a>
+        </div>
+
+        <div class="cert-card">
+            <h3>Client Private Key</h3>
+            <p>Private key corresponding to the public client certificate. Keep this secure!</p>
+            <a href="/download/client.key" class="download-btn">Download client.key</a>
+        </div>
+
+        <div class="footer">
+            <p>TrustBoundary Plugin Manager v1.0</p>
+            <p style="font-size: 0.9em; margin-top: 10px;">For support, contact your system administrator</p>
+        </div>
+    </div>
+</body>
+</html>

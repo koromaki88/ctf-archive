@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgres://anicrawl_admin:anicrawl_pass@db:5432/anicrawl
+      - CHROME_BIN=/usr/bin/google-chrome
+  db:
+    build:
+      context: .
+      dockerfile: Dockerfile.db
+    image: ani-db:latest
+    environment:
+      - POSTGRES_DB=anicrawl
+      - POSTGRES_USER=anicrawl_admin
+      - POSTGRES_PASSWORD=anicrawl_pass
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U anicrawl_admin -d anicrawl"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  db_data:

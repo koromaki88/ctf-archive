@@ -1,0 +1,9 @@
+services:
+  node:
+    build: ./api
+    depends_on:
+      - backend
+  backend:
+    build: ./
+    ports:
+      - "8000:80"

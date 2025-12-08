@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard • Secret Postbox</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body data-page="dashboard">
+    <div class="shell">
+        <header>
+            <div class="badge">Hyperf Crypt</div>
+            <h1>Secret Postbox</h1>
+        </header>
+        <div class="grid">
+            <div class="card">
+                <div class="row" style="justify-content: space-between;">
+                    <strong>Auth</strong>
+                    <span id="whoami" class="muted">Guest</span>
+                </div>
+                <div class="actions" style="margin: 0;">
+                    <button class="secondary" onclick="location.href='/login'">Login</button>
+                    <button class="secondary" onclick="location.href='/register'">Register</button>
+                    <button id="logoutBtn">Logout</button>
+                </div>
+                <div class="status" id="authStatus">Not signed in.</div>
+            </div>
+            <div class="card">
+                <strong>Compose Message</strong>
+                <label>To (username)</label>
+                <input id="toUser" placeholder="recipient username">
+                <label>Message</label>
+                <textarea id="msgBody" placeholder="Say hello..."></textarea>
+                <label class="row">
+                    <input type="checkbox" id="encryptToggle" style="width:auto;">
+                    <span>Encrypt with shared secret</span>
+                </label>
+                <input id="secret" placeholder="shared secret">
+                <div class="actions">
+                    <button id="sendBtn">Send</button>
+                    <button class="secondary" id="refreshBtn">Refresh Inbox</button>
+                </div>
+                <div class="status" id="sendStatus">Login to send.</div>
+            </div>
+        </div>
+        <div class="card" style="margin-top: 12px;">
+            <div class="row" style="justify-content: space-between; align-items: center;">
+                <strong>Inbox</strong>
+                <div class="row" style="gap:6px;">
+                    <input id="viewSecret" placeholder="secret for decrypting messages" style="width: 260px;">
+                    <button class="secondary" id="inboxRefreshTop">Refresh</button>
+                </div>
+            </div>
+            <div id="inbox" style="margin-top: 12px;"></div>
+            <div class="status" id="inboxStatus">Inbox ready.</div>
+        </div>
+        <div class="card" style="margin-top: 12px;">
+            <div class="row" style="justify-content: space-between; align-items: center;">
+                <strong>Sent</strong>
+                <div class="row" style="gap:6px;">
+                    <input id="viewSecretSent" placeholder="secret for decrypting sent messages" style="width: 260px;">
+                    <button class="secondary" id="sentRefreshTop">Refresh</button>
+                </div>
+            </div>
+            <div id="sent" style="margin-top: 12px;"></div>
+            <div class="status" id="sentStatus">Sent ready.</div>
+        </div>
+        <div class="card" style="margin-top: 12px;">
+            <div class="row" style="justify-content: space-between;">
+                <strong>Server Crypto (APP_KEY)</strong>
+            </div>
+            <div class="grid">
+                <div>
+                    <label for="srvKey">Key (16/32 bytes or base64)</label>
+                    <input id="srvKey" placeholder="enter key used for encrypt/decrypt">
+                    <label for="plain">Plaintext</label>
+                    <textarea id="plain" placeholder="Write something secret..."></textarea>
+                    <div class="actions">
+                        <button id="srvEncryptBtn">Encrypt →</button>
+                        <button class="secondary" id="clearPlain">Clear</button>
+                    </div>
+                    <div class="output" id="cipherOut"></div>
+                </div>
+                <div>
+                    <label for="cipher">Ciphertext</label>
+                    <textarea id="cipher" placeholder="Paste encrypted payload..."></textarea>
+                    <div class="actions">
+                        <button id="srvDecryptBtn">Decrypt →</button>
+                        <button class="secondary" id="clearCipher">Clear</button>
+                    </div>
+                    <div class="output" id="plainOut"></div>
+                </div>
+            </div>
+            <div class="status" id="status">Ready</div>
+        </div>
+    </div>
+    <script src="/app.js"></script>
+</body>
+</html>

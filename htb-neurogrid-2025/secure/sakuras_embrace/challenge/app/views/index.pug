@@ -1,0 +1,9 @@
+extends ./layout
+
+block gallery
+  if items && items.length
+    .grid-2.gap-24
+      each it in items
+        include ./_item_card.pug
+  else
+    p Empty

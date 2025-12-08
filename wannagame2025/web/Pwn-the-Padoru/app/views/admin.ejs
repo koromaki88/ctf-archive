@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AniCrawl Admin</title>
+  <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body data-page="admin">
+  <canvas id="snow-canvas" aria-hidden="true"></canvas>
+  <div class="aurora"></div>
+
+  <header class="site-header shell">
+    <div class="brand">
+      <div class="brand-mark">AC</div>
+      <div>
+        <p class="eyebrow">AniCrawl</p>
+        <strong>Admin Ops</strong>
+      </div>
+    </div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/dashboard">Dashboard</a>
+      <button class="pill ghost" data-action="logout">Log out</button>
+    </nav>
+  </header>
+
+  <main class="shell admin-grid">
+    <section class="glass hero-panel">
+      <div>
+        <p class="eyebrow">Operator view</p>
+        <h1>Control room</h1>
+        <p class="lede">Inspect users, active crawls, and loot events. Admin routes require the <code>admin</code> role.</p>
+        <div class="cta-row">
+          <button class="pill primary" data-action="reload-admin">Refresh data</button>
+          <a class="pill ghost" href="/dashboard">Back to dashboard</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="padoru-orb small">
+          <img src="/images/padoru.png" alt="Padoru nodding">
+        </div>
+        <p class="hint">Requests hit <code>/admin/users</code>, <code>/admin/crawls</code>, and <code>/admin/events</code>.</p>
+      </div>
+    </section>
+
+    <section class="panel-grid admin-panels">
+      <article class="glass panel">
+        <div class="panel-head">
+          <p class="eyebrow">Users</p>
+          <h3>Accounts</h3>
+        </div>
+        <ul class="mini-list" id="adminUsers"></ul>
+      </article>
+      <article class="glass panel">
+        <div class="panel-head">
+          <p class="eyebrow">Crawls</p>
+          <h3>Latest runs</h3>
+        </div>
+        <ul class="mini-list" id="adminCrawls"></ul>
+      </article>
+      <article class="glass panel">
+        <div class="panel-head">
+          <p class="eyebrow">Event log</p>
+          <h3>Loot events</h3>
+        </div>
+        <ul class="mini-list" id="adminEvents"></ul>
+      </article>
+    </section>
+  </main>
+
+  <div class="status-bar" id="statusBar" role="status" aria-live="polite"></div>
+  <script src="/js/main.js" type="module"></script>
+</body>
+</html>

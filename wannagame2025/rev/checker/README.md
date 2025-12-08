@@ -1,0 +1,3 @@
+# checker - 922 pts - 10 solves
+
+Welcome to my flag checker!. If you're lucky, the program will check all three parts for you, but maybe just two ...

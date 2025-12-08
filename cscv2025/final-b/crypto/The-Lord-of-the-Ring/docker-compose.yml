@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  chall_rust:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: chall_rust:local
+    environment:
+      # Provide the flag at runtime; shell env FLAG overrides the default below
+      - FLAG=${FLAG:-CSCV2025{test_flag}}
+    ports:
+      # Map host port (defaults to 1337) to container port 1337
+      - "${PORT:-1337}:1337"
+    restart: unless-stopped

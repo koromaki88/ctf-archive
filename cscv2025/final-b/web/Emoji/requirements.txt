@@ -1,0 +1,5 @@
+flask
+duckdb
+ftfy
+llama-cpp-python
+gunicorn

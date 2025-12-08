@@ -1,0 +1,8 @@
+version: "3.9"
+
+services:
+  kinghalo:
+    build: .
+    image: kinghalo:latest
+    ports:
+      - "1503:1503"

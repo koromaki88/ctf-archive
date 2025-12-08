@@ -1,0 +1,13 @@
+[package]
+name = "dragons-hoard-server"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+sol-ctf-framework = { path = "../../sol-ctf-framework" }
+solana-sdk = "2.2.2"
+solana-program = "=2.2.1"
+solana-program-test = "2.2.7"
+dragons-hoard = { path = "../program" }
+tokio = { version = "1", features = ["rt-multi-thread", "macros"] }
+

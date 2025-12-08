@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+  backend:
+    build: ./backend
+    # image: s1mpleapi-backend
+    container_name: fastapi_backend
+    networks:
+      - no-internet
+    restart: always
+  frontend:
+    build: ./frontend
+    # image: s1mpleapi-frontend
+    container_name: node_frontend
+    depends_on:
+      - backend
+    networks:
+      - no-internet
+      - internet
+    restart: always
+    ports:
+      - "3000:3000"
+
+networks:
+  internet: {}
+  no-internet:
+    internal: true

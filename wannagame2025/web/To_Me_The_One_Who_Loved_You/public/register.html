@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register • Secret Postbox</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body data-page="register">
+    <div class="shell narrow">
+        <header>
+            <div class="badge">Hyperf Crypt</div>
+            <h1>Create Account</h1>
+        </header>
+        <div class="card">
+            <label>Username</label>
+            <input id="regUser" placeholder="username" autocomplete="off">
+            <label>Password</label>
+            <input id="regPass" type="password" placeholder="password (>=6 chars)">
+            <button id="registerBtn">Register</button>
+            <div class="status" id="regStatus">Pick a username and password.</div>
+            <div class="muted">Already have an account? <a href="/login">Login</a></div>
+        </div>
+    </div>
+    <script src="/app.js"></script>
+</body>
+</html>

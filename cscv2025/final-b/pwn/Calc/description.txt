@@ -1,0 +1,12 @@
+Calculator Pro Max 🧮
+Challenge Description
+Welcome to Calculator Pro Max - where mathematics meets management!
+Gone are the days of simple, forgettable calculators. Our advanced system lets you create, store, and manage multiple calculators simultaneously. Each calculator can evaluate complex mathematical expressions with full operator precedence support (10 + 5) * (3 - 1) / 2, complete with custom names and detailed descriptions for your organizational needs.
+Features:
+
+🎯 Parse and evaluate sophisticated expressions with +, -, *, / and parentheses
+📝 Store unlimited calculators with unique names and descriptions
+🔧 Full management suite: Create, Calculate, Modify, and Delete at will
+🏗 Enterprise-grade expression parsing with recursive evaluation
+
+We're so confident in our calculator's robust design that we're offering a reward to anyone who can break it. Your mission? Find the critical flaw hidden within our mathematical paradise and claim your flag.

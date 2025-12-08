@@ -1,0 +1,44 @@
+version: '3'
+services:
+  hyperf-skeleton:
+    container_name: hyperf-skeleton
+    image: hyperf-skeleton
+    build:
+      context: .
+    ports:
+      - 9501:9501
+    environment:
+      - APP_ENV=prod
+      - APP_KEY=0123456789abcdef0123456789abcdef
+      - SCAN_CACHEABLE=true
+      - DB_DRIVER=mysql
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_DATABASE=hyperf
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
+      - DB_CHARSET=utf8mb4
+      - DB_COLLATION=utf8mb4_unicode_ci
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:8.0
+    container_name: hyperf-mysql
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=hyperf
+      - MYSQL_ROOT_HOST=%
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+    ports:
+      - 3306:3306
+
+networks:
+  default:
+    name: hyperf-skeleton
+
+volumes:
+  mysql-data:

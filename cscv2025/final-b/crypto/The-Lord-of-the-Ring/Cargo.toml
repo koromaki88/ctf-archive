@@ -1,0 +1,13 @@
+[package]
+name = "chall_rust"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+aes = "0.8"
+num-bigint = { version = "0.4", features = ["rand"] }
+num-traits = "0.2"
+rand = "0.8"
+sha2 = "0.10"
+generic-array = "0.14"
+openssl = "0.10"

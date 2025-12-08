@@ -1,0 +1,50 @@
+:1337 {
+  # API)
+  handle {
+    redir * /challenge/ 302
+  }
+
+
+  @cart {
+    path /cart/*
+  }
+
+  handle @cart {
+    reverse_proxy 127.0.0.1:5000 {
+      trusted_proxies private_ranges
+    }
+  }
+
+  # API reads
+  @api {
+    path /api/v1/*
+  }
+  handle @api {
+    reverse_proxy 127.0.0.1:5000 {
+      trusted_proxies private_ranges
+    }
+  }
+
+  handle_path /challenge/* {
+    reverse_proxy 127.0.0.1:5000 {
+      trusted_proxies private_ranges
+    }
+  }
+
+  # Static assets (served by Caddy)
+  handle_path /public/* {
+    root * /app/main_app/public
+    file_server
+  }
+
+  handle_path /images/* {
+	root * /app/main_app/public/images
+	file_server
+  }
+
+  log {
+    output stdout
+    format console
+  }
+  encode zstd gzip
+}

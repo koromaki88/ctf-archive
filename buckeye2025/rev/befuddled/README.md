@@ -1,0 +1,3 @@
+# befuddled - 34 solves / 454 pts
+
+We got this binary from another dimension! We're honestly not even sure how it was produced...

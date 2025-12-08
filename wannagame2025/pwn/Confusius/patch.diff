@@ -1,0 +1,37 @@
+[1mdiff --git a/src/d8/d8.cc b/src/d8/d8.cc[m
+[1mindex 0c86d4f8b95..41764172ebb 100644[m
+[1m--- a/src/d8/d8.cc[m
+[1m+++ b/src/d8/d8.cc[m
+[36m@@ -4018,7 +4018,7 @@[m [mLocal<FunctionTemplate> Shell::CreateNodeTemplates([m
+ [m
+ Local<ObjectTemplate> Shell::CreateGlobalTemplate(Isolate* isolate) {[m
+   Local<ObjectTemplate> global_template = ObjectTemplate::New(isolate);[m
+[31m-  global_template->Set(Symbol::GetToStringTag(isolate),[m
+[32m+[m[32m/*   global_template->Set(Symbol::GetToStringTag(isolate),[m
+                        String::NewFromUtf8Literal(isolate, "global"));[m
+   global_template->Set(isolate, "version",[m
+                        FunctionTemplate::New(isolate, Version));[m
+[36m@@ -4063,7 +4063,7 @@[m [mLocal<ObjectTemplate> Shell::CreateGlobalTemplate(Isolate* isolate) {[m
+     global_template->Set(isolate, "async_hooks",[m
+                          Shell::CreateAsyncHookTemplate(isolate));[m
+   }[m
+[31m-[m
+[32m+[m[32m */[m
+   return global_template;[m
+ }[m
+ [m
+[1mdiff --git a/src/wasm/wasm-subtyping.cc b/src/wasm/wasm-subtyping.cc[m
+[1mindex 0bf8b006dde..52b0b24de5d 100644[m
+[1m--- a/src/wasm/wasm-subtyping.cc[m
+[1m+++ b/src/wasm/wasm-subtyping.cc[m
+[36m@@ -423,8 +423,8 @@[m [mV8_NOINLINE V8_EXPORT_PRIVATE bool IsSubtypeOfImpl([m
+     const WasmModule* super_module) {[m
+   DCHECK(subtype != supertype || sub_module != super_module);[m
+ [m
+[31m-  std::optional<bool> result = IsSubtypeOf_CommonImpl(subtype, supertype);[m
+[31m-  if (result.has_value()) return result.value();[m
+[32m+[m[32m  // std::optional<bool> result = IsSubtypeOf_CommonImpl(subtype, supertype);[m
+[32m+[m[32m  // if (result.has_value()) return result.value();[m
+   DCHECK(subtype.has_index() && supertype.has_index());[m
+   ModuleTypeIndex sub_index = subtype.ref_index();[m
+   CanonicalTypeIndex super_canon =[m

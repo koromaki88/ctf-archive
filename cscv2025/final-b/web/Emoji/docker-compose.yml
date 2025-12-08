@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  emoji-generator:
+    build: .
+    ports:
+      - "5555:5000"
+    restart: always
+    deploy:
+      resources:
+        limits:
+          memory: 2g
+    # environment:
+    #   - PYTHONUNBUFFERED=1
+

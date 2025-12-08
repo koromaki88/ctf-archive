@@ -1,0 +1,40 @@
+{
+  "Hint AD": {
+    "Crypto01": [
+      "TSSHOCK",
+      "6ix1een",
+      "MtA.beta sampling"
+    ],
+    "Pwn01": [
+      "command injection via username",
+      "snprintf path truncation",
+      "Padding oracle via decrypt operation"
+    ],
+    "Pwn02": "'meow, dont feed me too much because Im afraid of getting fat,' said the cat.",
+    "Pwn03": [
+      "Admin account is easy to bypass",
+      "You can upload image size as you want",
+      "You can download flag without admin account",
+      "List all images and you will find the flag"
+    ],
+    "Web01": [
+      "Think about SSO custom claims",
+      "Source code .so ( https://drive.google.com/drive/folders/1oBKIsKp9w730rcg3hVYmxlqSXAlxEBK8?usp=sharing )",
+      "All you need is a parser discrepancy and CVE-2024-45410"
+    ],
+    "Web02": [
+      "second-order",
+      "One of our best engineer create the authentication functionality, there should not be any mistake, especially in java language, where every exception being handle properly.",
+      "classloader"
+    ]
+  },
+  "Hint Jeo": {
+    "Jeo Web01": [
+      "CVE-2025-22150"
+    ],
+    "Jeo Web02": [
+      "INSERT INTO users (role, fullname, username, password) VALUES (2,....",
+      "/admin"
+    ]
+  }
+}

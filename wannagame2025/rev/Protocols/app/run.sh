@@ -1,0 +1,1 @@
+xxd -p -c 16 | while read line; do dotnet saw.dll $line; done

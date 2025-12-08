@@ -1,0 +1,7 @@
+<svg width="640" height="480" viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg">
+  <rect width="640" height="480" fill="#ffffff"/>
+  <circle cx="320" cy="260" r="110" fill="#444" />
+  <path d="M240 220 C 280 160, 360 160, 400 220" fill="none" stroke="#444" stroke-width="16"/>
+  <rect x="300" y="200" width="40" height="20" fill="#333"/>
+  <text x="320" y="420" font-family="Noto Serif JP, serif" font-size="28" text-anchor="middle" fill="#0f4c81">Tetsubin</text>
+</svg>

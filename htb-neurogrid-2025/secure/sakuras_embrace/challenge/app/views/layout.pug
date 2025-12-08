@@ -1,0 +1,75 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    title= title || "Senmonten"
+    link(rel="preconnect" href="https://fonts.googleapis.com")
+    link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin)
+    link(href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@400;500;700&display=swap" rel="stylesheet")
+    link(rel="stylesheet" href="/public/css/styles.css")
+  body
+    //- Toast anchor + success toast (shown after checkout)
+    a#purchased
+    .toast.toast-success Purchase completed (simulated). Thank you.
+
+    //- 2D shop background (fixed layer, decorative)
+    .scene(aria-hidden="true")
+      .ceiling
+      .noren
+      .lantern.l-left
+      .lantern.l-right
+      .shelves
+        .shelf-row
+          .shelf
+          .shelf
+          .shelf
+          .shelf
+          .shelf
+        .shelf-row
+          .shelf
+          .shelf
+          .shelf
+          .shelf
+          .shelf
+        .shelf-row
+          .shelf
+          .shelf
+          .shelf
+          .shelf
+          .shelf
+      .aisle-runner
+      .floor
+      .dust
+        - for (var i = 0; i < 18; i++)
+          span.speck
+
+    //- HUD (game-like) — open/close menu via :target (no JS)
+    .hud
+      a.hud-btn(href="#menu" aria-label="Open menu") Menu
+      a.hud-btn(href="#") Close
+
+    //- Menu overlay
+    #menu.menu-overlay
+      .menu-backdrop
+      .menu-panel(role="dialog" aria-modal="true" aria-labelledby="menuTitle")
+        h2#menuTitle.menu-title Senmonten — Menu
+        ul.menu-list
+          li: a.menu-link(href="/#") Browse products
+          li: a.menu-link(href="#cart-panel") Go to cart
+          li: a.menu-link(href="#") Close
+        p.menu-hint Use ↑↓ to select and Enter, or click a link
+
+    header.header
+      h1.logo Senmonten
+      span.subtitle Senmonten — Quiet choices
+
+    main.container
+      section.gallery
+        block gallery
+      aside.sidebar#cart-panel
+        include ./_sidebar.pug
+
+    footer.footer
+      p © #{new Date().getFullYear()} Senmonten
+

@@ -1,0 +1,16 @@
+//- Card for a single item in the Gallery
+article.card(id=`added-${it.id}`)
+  a.anchor(id=`item-${it.id}`)
+  .imgwrap
+    img(src=it.image, alt=it.name, loading="lazy")
+  .card-body
+    h2.item-name= it.name
+    p.price= yen(it.price_yen)
+    form(action="/cart/add" method="post" class="form-inline")
+      input(type="hidden" name="itemId" value=it.id)
+      label.sr-only(for=`qty-${it.id}`) Quantity (expressions allowed)
+      // changed to text to allow expression input for CTF
+      input.qty(type="text" id=`qty-${it.id}` name="quantity" value="1")
+      button.btn.btn-add(type="submit" aria-label="Add")
+        span.plus +
+        |  Add

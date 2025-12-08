@@ -1,0 +1,7 @@
+Please check the hash of the files:
+	+ chall:
+		- MD5: f41ad9da4134bbc433858cbc6c68cf92
+		- SHA256: 39195d8731464beba63b811b5ca6c5bff43834de44d0f3ab2cea934654bf2252
+	+ libc.so.6:
+		- MD5: d98daf143f41894e16c69f4e55b130ce
+		- SHA256: 511f825ee075610ac9c0f7f91e2c13de2000d0f7b859f6461137e809a0a009d0

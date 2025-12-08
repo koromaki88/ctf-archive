@@ -1,0 +1,30 @@
+nav.kakejiku
+  h3.track-head Your Selection
+  if cartFull.lines.length
+    ul.track
+      each line in cartFull.lines
+        li.track-row(id='cart-item-' + line.id)
+          .row-main
+            span.name= line.name
+            form(action="/cart/remove" method="post" class="remove-form")
+              input(type="hidden" name="itemId" value=line.id)
+              button.remove-btn(type="submit" aria-label="Remove") ×
+          .row-sub
+            form(action="/cart/update" method="post" class="qty-form")
+              input(type="hidden" name="itemId" value=line.id)
+              label.sr-only(for='cart-qty-' + line.id) Quantity (expressions allowed)
+              input.qty-small(type="text" id='cart-qty-' + line.id name="quantity" value=line.qtyExpr)
+              button.btn.btn-update(type="submit") Update
+            span.lineprice= (isNaN(line.lineTotal) ? "—" : yen(line.lineTotal))
+  else
+    p.muted Nothing here yet.
+  hr.sep
+  .total-row
+    span.total-label Total
+    strong.total-amount= (isNaN(cartFull.total) ? "—" : yen(cartFull.total))
+
+  // show Buy button only when cart has items
+  if cartFull.lines.length
+    form(action="/cart/checkout" method="post" class="checkout-form")
+      button.btn.btn-buy(type="submit") Purchase (simulated)
+

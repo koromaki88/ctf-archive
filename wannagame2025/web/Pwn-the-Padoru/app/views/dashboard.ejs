@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AniCrawl Dashboard</title>
+  <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body data-page="dashboard">
+  <canvas id="snow-canvas" aria-hidden="true"></canvas>
+  <div class="aurora"></div>
+
+  <header class="site-header shell">
+    <div class="brand">
+      <div class="brand-mark">AC</div>
+      <div>
+        <p class="eyebrow">AniCrawl</p>
+        <strong>Arcade Control</strong>
+      </div>
+    </div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/admin">Admin</a>
+      <button class="pill ghost" data-action="logout">Log out</button>
+    </nav>
+  </header>
+
+  <main class="shell dashboard-grid">
+    <section class="glass hero-panel">
+      <div>
+        <p class="eyebrow">Welcome back</p>
+        <h1 id="welcomeName">Pilot</h1>
+        <p class="lede" id="welcomeCopy">Loading your arcade profile...</p>
+        <div class="hero-meta">
+          <div class="meta-chip">
+            <span class="label">Level</span>
+            <strong id="levelValue">-</strong>
+          </div>
+          <div class="meta-chip">
+            <span class="label">XP</span>
+            <strong id="xpValue">-</strong>
+          </div>
+          <div class="meta-chip">
+            <span class="label">Last action</span>
+            <strong id="lastAction">-</strong>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="padoru-orb small">
+          <img src="/images/padoru.png" alt="Padoru cheering">
+        </div>
+        <p class="hint">Snow overlay is client-side only — API calls stay crisp.</p>
+      </div>
+    </section>
+
+    <section class="glass panel action-panel">
+      <div class="panel-head">
+        <p class="eyebrow">New raid</p>
+        <h3>Target a URL</h3>
+      </div>
+      <form id="actionForm" class="action-form" autocomplete="off">
+        <label class="field">
+          <span>Target URL</span>
+          <input id="targetUrl" name="url" type="url" required placeholder="https://example.com">
+        </label>
+        <div class="action-buttons">
+          <button type="button" class="pill primary" data-action="crawl">Arcade crawl</button>
+          <button type="button" class="pill ghost" data-action="fetch">Legacy fetch</button>
+          <button type="button" class="pill ghost" data-action="screenshot">Screenshot</button>
+          <button type="button" class="pill ghost" data-action="source">Capture source</button>
+        </div>
+      </form>
+      <div class="action-result" id="actionResult"></div>
+    </section>
+
+    <section class="glass panel stats-panel">
+      <div class="stat">
+        <p class="label">Total crawls</p>
+        <strong id="totalCrawls">-</strong>
+      </div>
+      <div class="stat">
+        <p class="label">Recent loot</p>
+        <strong id="recentLoot">-</strong>
+      </div>
+      <div class="stat">
+        <p class="label">Achievements</p>
+        <strong id="achievements">-</strong>
+      </div>
+      <div class="stat">
+        <p class="label">Quest progress</p>
+        <strong id="questProgress">-</strong>
+      </div>
+    </section>
+
+    <section class="panel-grid">
+      <article class="glass panel wide">
+        <div class="panel-head">
+          <p class="eyebrow">Latest runs</p>
+          <h3>Recent crawls</h3>
+        </div>
+        <div class="list" id="recentRuns"></div>
+      </article>
+      <article class="glass panel">
+        <div class="panel-head">
+          <p class="eyebrow">Activity</p>
+          <h3>Recent events</h3>
+        </div>
+        <ul class="feed" id="lootFeed"></ul>
+      </article>
+    </section>
+
+    <section class="panel-grid">
+      <article class="glass panel">
+        <div class="panel-head">
+          <p class="eyebrow">Quest board</p>
+          <h3>Side missions</h3>
+        </div>
+        <div class="list quests" id="questList"></div>
+      </article>
+      <article class="glass panel">
+        <div class="panel-head">
+          <p class="eyebrow">Leaderboard</p>
+          <h3>Arcade top pilots</h3>
+        </div>
+        <ul class="feed" id="scoreboard"></ul>
+      </article>
+    </section>
+
+    <section class="glass panel wide">
+      <div class="panel-head">
+        <p class="eyebrow">Analytics</p>
+        <h3>Session highlights</h3>
+      </div>
+      <div class="analytics-grid">
+        <div>
+          <p class="label">Recent runs</p>
+          <ul class="mini-list" id="analyticsRuns"></ul>
+        </div>
+        <div>
+          <p class="label">Public loot</p>
+          <ul class="mini-list" id="publicLoot"></ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="status-bar" id="statusBar" role="status" aria-live="polite"></div>
+  <script src="/js/main.js" type="module"></script>
+</body>
+</html>

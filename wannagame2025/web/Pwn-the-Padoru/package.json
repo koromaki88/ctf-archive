@@ -1,0 +1,22 @@
+{
+  "name": "anicrawl",
+  "version": "1.0.0",
+  "description": "A web project that crawls data from websites using Puppeteer.",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.7",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "fs-extra": "^11.3.2",
+    "jsonwebtoken": "^9.0.2",
+    "node-html-parser": "^7.0.1",
+    "pg": "^8.16.3",
+    "puppeteer": "^24.25.0",
+    "uuid": "^9.0.1"
+  }
+}

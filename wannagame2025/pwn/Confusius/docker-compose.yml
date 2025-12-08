@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  confusius:
+    build:
+      # Use the private folder as context to include the prebuilt binary
+      context: .
+      dockerfile: Dockerfile
+    image: confusius:latest
+    ports:
+      - "${HOST_PORT:-6100}:6100"
+    restart: unless-stopped
+

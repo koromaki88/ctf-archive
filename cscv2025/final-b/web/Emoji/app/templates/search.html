@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Emojis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Search Emojis 🔍</h1>
+        <form method="post" class="emoji-form">
+            <input name="query" placeholder="">
+            <button type="submit">Search</button>
+        </form>
+        <ul class="emoji-list">
+            {% for combo, result in results %}
+              <li><strong>{{ combo }}</strong>: {{ result }}</li>
+            {% endfor %}
+        </ul>
+        <a href="/">⬅️ Back</a>
+    </div>
+</body>
+</html>

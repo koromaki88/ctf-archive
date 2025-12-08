@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  # PostgreSQL database for persistent storage
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ctf_backend
+      POSTGRES_USER: ctf_user
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ctf_password_change_in_production}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ctf_user -d ctf_backend"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # Redis for caching and session storage
+  redis:
+    image: redis:7-alpine
+    command: redis-server --maxmemory 256mb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # CTF backend application
+  ctf-backend:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      # Override database URL to use PostgreSQL
+      CTF_DATABASE_URL: postgresql://ctf_user:${POSTGRES_PASSWORD:-ctf_password_change_in_production}@postgres:5432/ctf_backend
+      # Redis URL for caching
+      CTF_REDIS_URL: redis://redis:6379/0
+    volumes:
+      - backend-data:/app/data
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  postgres-data:
+  redis-data:
+  backend-data:
+

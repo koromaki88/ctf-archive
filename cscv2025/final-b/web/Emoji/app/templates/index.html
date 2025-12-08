@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Emoji Combiner</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Emoji Combiner 🦙🦆</h1>
+        <form method="post" class="emoji-form">
+            <input name="emoji1" placeholder="🦙">
+            <input name="emoji2" placeholder="🦆">
+            <button type="submit">Combine</button>
+        </form>
+        <hr>
+        <a href="/search">🔍 Search emojis</a>
+        {% if result %}
+          <div class="result">
+            <strong>Combined Emoji:</strong> {{ result }}
+          </div>
+        {% endif %}
+    </div>
+</body>
+</html>
