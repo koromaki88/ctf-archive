@@ -1,0 +1,3 @@
+[submodule "lactf-archive"]
+	path = lactf-archive
+	url = https://github.com/uclaacm/lactf-archive
